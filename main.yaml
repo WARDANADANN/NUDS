@@ -1,0 +1,24 @@
+name: Deploy Website on PUSH
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: FTP Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: /home/vol7_5/infinityfree.com/if0_36608519/htdocs
